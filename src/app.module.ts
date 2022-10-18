@@ -2,16 +2,13 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ModulJugadoresModule } from './modul_jugadores/modul_jugadores.module';
-import { ConfigModule } from '@nestjs/config';
 import { ModulEquiposModule } from './modul_equipos/modul_equipos.module';
-
+import { ModulJugadoresModule } from './modul_jugadores/modul_jugadores.module';
 
 const entities: string[] = ['./**/*.entity.js'];
 
 @Module({
   imports: [
-
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -19,23 +16,15 @@ const entities: string[] = ['./**/*.entity.js'];
       username: 'nest',
       password: 'nest',
       database: 'lista_equipo',
-      logging: ['error'],
+      //logging: ['error'],
       entities: entities,
-      synchronize: false,
- 
-    }),
-    ConfigModule.forRoot({
-
-      isGlobal: true,
-
+      synchronize: true,
     }),
 
     ModulJugadoresModule,
-    ModulEquiposModule
-
-
+    ModulEquiposModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
