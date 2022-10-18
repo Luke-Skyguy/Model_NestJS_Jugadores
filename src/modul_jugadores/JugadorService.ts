@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from 'typeorm';
 import { jugadores } from "src/modul_jugadores/jugador.entity";
 import { off } from "process";
+import { Tag } from "src/modul_tags/tag.entity";
 
 
 
@@ -10,8 +11,9 @@ import { off } from "process";
 export class JugadorService {
     
     constructor(
-        @InjectRepository(jugadores) private jugadorRepository: Repository<jugadores>) { }
-
+        @InjectRepository(jugadores) private jugadorRepository: Repository<jugadores>,
+        @InjectRepository(Tag) private tagRepository: Repository<Tag>) { }
+        
     // example how to show DM entity
     showAllRepository() {
         return this.jugadorRepository.find();
@@ -32,8 +34,7 @@ export class JugadorService {
             relations: ['equipo']
         });
     }
-        // Busqueda con relacion a dos entidades
-
+    // Busqueda paginada
      searchAllPaged(limit:number,offset:number) {
         return this.jugadorRepository.find( {
             skip:offset,
@@ -56,5 +57,37 @@ export class JugadorService {
         return await this.jugadorRepository.save(updatedPlayer);
 
     }
+
+    //Cambio de tag de player
+    async assignPlayerToTag(
+        idPlayer:number,
+        tagId?: number,
+      ): Promise<jugadores> {
+        if (idPlayer) {
+          const player = (await this.jugadorRepository.findOne({
+            where: {
+              idJugador: idPlayer,
+              idTag: tagId,
+            },
+            //  relations: ['tags'],
+          })) as jugadores;
+    
+          if (player) {
+            const tag = (await this.tagRepository.findOne({
+              where: {
+                idJugador: idPlayer,
+                idTag: tagId,
+              },
+            })) as Tag;
+    
+            if (tag) {
+              player.tag.push(tag);
+              this.jugadorRepository.save(player);
+              return player;
+            }
+          }
+        }
+        return null;
+      }
 }
 

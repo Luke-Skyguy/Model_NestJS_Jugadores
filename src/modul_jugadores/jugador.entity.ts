@@ -13,14 +13,14 @@ export class jugadores extends AbstractFechas {
 
   @ManyToOne(() => equipos, (equipo) => equipo.jugadores)
   equipo?: equipos;
-  @ManyToMany(() => Tag, (tag) => tag.idTag)
+  @ManyToMany((tag) => Tag)
   @JoinTable( {name:'tag_jugadores'})
   tag: Tag[];
 
   @PrimaryGeneratedColumn()
   idJugador?: number;
 
-  @Column()
+  @Column(({ name: 'ACTIVE', nullable: true }))
   nom_jugador?: string;
 
   @Column()
