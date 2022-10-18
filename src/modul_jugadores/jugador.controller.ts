@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, Logger, Param, Post, Put, Query, Req } from '@nestjs/common';
 import { off } from 'process';
 import { AppService } from 'src/app.service';
-import { jugadores } from './jugador.entity';
+import { Jugador } from './jugador.entity';
 import { JugadorService } from './JugadorService';
 
 
@@ -33,7 +33,7 @@ export class JugadorController {
   //Inserciones 
   @Post()
   @HttpCode(204)
-  async postPlayer(@Body() newPlayer: jugadores) {
+  async postPlayer(@Body() newPlayer: Jugador) {
     return await this.playerService.insertPlayer(newPlayer);
 
   }
@@ -43,7 +43,7 @@ export class JugadorController {
     @Param('playerId') playerId: string,
     @Param('tagId') tagId: string,
   
-  ): Promise<jugadores> {
+  ): Promise<Jugador> {
  
       this.logger.debug(
         `-- Assigning tag with id ${tagId} to player with id ${playerId}`,
@@ -57,7 +57,7 @@ export class JugadorController {
   //Editar jugador
   @Put(':id')
   @HttpCode(204)
-  async changePlayer(@Param('id') id: string, @Body() updatedPlayer: jugadores) {
+  async changePlayer(@Param('id') id: string, @Body() updatedPlayer: Jugador) {
     return await this.playerService.updatePlayer(parseInt(id), updatedPlayer);
   }
   //Borrar jugador

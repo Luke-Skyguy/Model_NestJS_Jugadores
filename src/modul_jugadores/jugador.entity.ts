@@ -3,20 +3,21 @@ import { equipos } from "src/modul_equipos/equipos.entity";
 import { Tag } from "src/modul_tags/tag.entity";
 import { AbstractFechas } from "src/modul_fechas/fechas_entity";
 @Entity({ name: 'jugadores' })
-export class jugadores extends AbstractFechas {
-  constructor(params: jugadores) {
+export class Jugador extends AbstractFechas {
+  constructor(params: Jugador) {
     super(params);
     if (params) {
       Object.keys(params).forEach((key) => (this[key] = params[key]))
     }
   }
 
-  @ManyToOne(() => equipos, (equipo) => equipo.jugadores)
+  @ManyToOne(() => equipos, (equipo) => equipo.numjugadores)
   equipo?: equipos;
 
-  @ManyToMany((tag) => Tag, {
+  @ManyToMany((tag) => Tag,(tag)=> tag.jugadores, {
     eager: false,
   })
+  tags?: Tag[];
   @JoinTable({
     name: 'tag_to_jugador',
     joinColumn: {
@@ -26,9 +27,6 @@ export class jugadores extends AbstractFechas {
       name: 'JUGADOR_ID',
     },
   })
-
-
-
 
   @PrimaryGeneratedColumn()
   idJugador?: number;

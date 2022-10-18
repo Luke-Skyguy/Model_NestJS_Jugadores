@@ -1,4 +1,4 @@
-import { jugadores } from "src/modul_jugadores/jugador.entity";
+import { Jugador } from "src/modul_jugadores/jugador.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'fechas' })

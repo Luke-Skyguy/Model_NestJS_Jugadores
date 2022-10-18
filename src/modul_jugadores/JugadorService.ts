@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException, Param } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from 'typeorm';
-import { jugadores } from "src/modul_jugadores/jugador.entity";
+import { Jugador } from "src/modul_jugadores/jugador.entity";
 import { off } from "process";
 import { Tag } from "src/modul_tags/tag.entity";
 
@@ -11,7 +11,7 @@ import { Tag } from "src/modul_tags/tag.entity";
 export class JugadorService {
 
   constructor(
-    @InjectRepository(jugadores) private jugadorRepository: Repository<jugadores>,
+    @InjectRepository(Jugador) private jugadorRepository: Repository<Jugador>,
     @InjectRepository(Tag) private tagRepository: Repository<Tag>) { }
 
   // example how to show DM entity
@@ -41,7 +41,7 @@ export class JugadorService {
       take: limit,
     });
   }
-  async insertPlayer(newPlayer: jugadores): Promise<jugadores | undefined> {
+  async insertPlayer(newPlayer: Jugador): Promise<Jugador | undefined> {
     return await this.jugadorRepository.save(newPlayer);
 
   }
@@ -51,8 +51,8 @@ export class JugadorService {
 
     return await this.jugadorRepository.delete(id);
   }
-  async updatePlayer(id: number, newPlayer: jugadores) {
-    let updatedPlayer: jugadores = await this.jugadorRepository.findOne({ idJugador: id });
+  async updatePlayer(id: number, newPlayer: Jugador) {
+    let updatedPlayer: Jugador = await this.jugadorRepository.findOne({ idJugador: id });
     updatedPlayer = { ...updatedPlayer, ...newPlayer }
     return await this.jugadorRepository.save(updatedPlayer);
 
@@ -62,7 +62,7 @@ export class JugadorService {
   async assignPlayerToTag(
     idPlayer: number,
     tagId?: number,
-  ): Promise<jugadores> {
+  ): Promise<Jugador> {
     if (idPlayer) {
       const player = (await this.jugadorRepository.findOne({
         where: {
@@ -70,7 +70,7 @@ export class JugadorService {
           idTag: tagId,
         },
         relations: ['tags'],
-      })) as jugadores;
+      })) as Jugador;
 
       if (player) {
         const tag = (await this.tagRepository.findOne({
@@ -81,7 +81,7 @@ export class JugadorService {
         })) as Tag;
 
         if (tag) {
-          player.push(tag);
+          player.tags.push(tag);
           this.jugadorRepository.save(player);
           return player;
         }

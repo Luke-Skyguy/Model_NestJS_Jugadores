@@ -1,10 +1,10 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { jugadores } from "../modul_jugadores/jugador.entity";
+import { Jugador } from "../modul_jugadores/jugador.entity";
 
 @Entity({ name: 'equipos' })
 export class equipos {
-  @OneToMany(() => jugadores, (jugador) => jugador.equipo)
-  jugador: jugadores[];
+  @OneToMany(() => Jugador, (jugador) => jugador.equipo)
+  jugador: Jugador[];
   constructor(params: equipos) {
     if (params) {
       Object.keys(params).forEach((key) => (this[key] = params[key]))
@@ -15,7 +15,7 @@ export class equipos {
   @Column()
   nom_equipo: string;
   @Column()
-  jugadores: number;
+  numjugadores: number;
 
   @Column()
   puntos_temporada: number;

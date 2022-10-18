@@ -21,7 +21,7 @@ const entities: string[] = ['./**/*.entity.js'];
       database: 'lista_equipo',
       logging: ['error'],
       entities: entities,
-      synchronize: false,
+      synchronize: true,
  
     }),
     ConfigModule.forRoot({
