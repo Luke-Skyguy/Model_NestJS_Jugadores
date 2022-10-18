@@ -2,7 +2,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColum
 import { equipos } from "src/modul_equipos/equipos.entity";
 import { Tag } from "src/modul_tags/tag.entity";
 import { AbstractFechas } from "src/modul_fechas/fechas_entity";
-@Entity({ name: 'jugadores'})
+@Entity({ name: 'jugadores' })
 export class jugadores extends AbstractFechas {
   constructor(params: jugadores) {
     super(params);
@@ -13,9 +13,22 @@ export class jugadores extends AbstractFechas {
 
   @ManyToOne(() => equipos, (equipo) => equipo.jugadores)
   equipo?: equipos;
-  @ManyToMany((tag) => Tag)
-  @JoinTable( {name:'tag_jugadores'})
-  tag: Tag[];
+
+  @ManyToMany((tag) => Tag, {
+    eager: false,
+  })
+  @JoinTable({
+    name: 'tag_to_jugador',
+    joinColumn: {
+      name: 'TAG_ID',
+    },
+    inverseJoinColumn: {
+      name: 'JUGADOR_ID',
+    },
+  })
+
+
+
 
   @PrimaryGeneratedColumn()
   idJugador?: number;
@@ -30,11 +43,11 @@ export class jugadores extends AbstractFechas {
   goles_temporada?: number;
 
   @Column()
-  posicion?:string
+  posicion?: string
 
   @Column()
-  equipIdEquipo?:number
-  
+  equipIdEquipo?: number
+
   @Column()
   dataAlta?: string;
 
