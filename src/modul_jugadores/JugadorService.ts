@@ -11,7 +11,7 @@ export class JugadorService {
     @InjectRepository(Jugador)
     private jugadorRepository: Repository<Jugador>,
     @InjectRepository(Tag) private tagRepository: Repository<Tag>,
-  ) {}
+  ) { }
 
   // example how to show DM entity
   showAllRepository() {
@@ -38,9 +38,10 @@ export class JugadorService {
     });
   }
   // Busqueda de abstractas
-  async searchAbstractDate(id: number) {
+  async searchAbstractDate(id: string) {
     return await this.jugadorRepository.findOne({
       select: ['nom_jugador', 'num_jugador'],
+      where: { idJugador: id, }
     });
   }
 

@@ -44,6 +44,10 @@ export class JugadorController {
   ) {
     return this.playerService.searchAllPaged(limit, offset);
   }
+  @Get('date/:id')
+  getPlayerDate(@Param('id') id: string){
+    return this.playerService.searchAbstractDate(id);
+  }
   //Inserciones
   @Post()
   @HttpCode(204)
