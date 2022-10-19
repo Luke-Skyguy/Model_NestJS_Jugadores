@@ -11,7 +11,7 @@ export class JugadorService {
     @InjectRepository(Jugador)
     private jugadorRepository: Repository<Jugador>,
     @InjectRepository(Tag) private tagRepository: Repository<Tag>,
-  ) { }
+  ) {}
 
   // example how to show DM entity
   showAllRepository() {
@@ -38,12 +38,10 @@ export class JugadorService {
     });
   }
   // Busqueda de abstractas
-  searchAbstractDate(id: number) {
-   /* return this.jugadorRepository.find({
-      select:{
-      },
-    })
-    */
+  async searchAbstractDate(id: number) {
+    return await this.jugadorRepository.findOne({
+      select: ['nom_jugador', 'num_jugador'],
+    });
   }
 
   async insertPlayer(newPlayer: Jugador): Promise<Jugador | undefined> {
@@ -64,22 +62,18 @@ export class JugadorService {
   }
 
   //Cambio de tag de player
-  async assignPlayerToTag(
-    idPlayer: number,
-    tagId?: number,
-  ): Promise<Jugador> {
+  async assignPlayerToTag(idPlayer: number, tagId?: number): Promise<Jugador> {
     const player = (await this.jugadorRepository.findOne({
       where: {
         idJugador: idPlayer,
       },
-      relations: ['tags']
-
+      relations: ['tags'],
     })) as Jugador;
     const tag = (await this.tagRepository.findOne({
       where: {
-        idTag: tagId
+        idTag: tagId,
       },
-      relations: ['jugadores']
+      relations: ['jugadores'],
     })) as Tag;
     // player.tags[flag] = tag;
     player.tags.push(tag);

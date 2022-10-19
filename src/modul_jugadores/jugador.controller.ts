@@ -68,10 +68,7 @@ export class JugadorController {
   //Editar jugador
   @Put(':id')
   @HttpCode(204)
-  async changePlayer(
-    @Param('id') id: string,
-    @Body() updatedPlayer: Jugador,
-  ) {
+  async changePlayer(@Param('id') id: string, @Body() updatedPlayer: Jugador) {
     return await this.playerService.updatePlayer(parseInt(id), updatedPlayer);
   }
   //Borrar jugador
@@ -93,7 +90,6 @@ export class JugadorController {
       parseInt(tagId),
     );
   }
-
 }
 
 function Args(arg0: string, arg1: { type: () => any }) {

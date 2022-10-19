@@ -21,7 +21,7 @@ export class Jugador extends AbstractFechas {
   @ManyToOne(() => equipos, (equipo) => equipo.numjugadores)
   equipo?: equipos;
 
-  @ManyToMany((tag) => Tag,(tag)=> tag.jugadores, {
+  @ManyToMany((tag) => Tag, (tag) => tag.jugadores, {
     eager: false,
   })
   @JoinTable({
