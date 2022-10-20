@@ -9,7 +9,9 @@ import { Jugador } from '../modul_jugadores/jugador.entity';
 
 @Entity({ name: 'equipos' })
 export class equipos {
-  @OneToMany(() => Jugador, (jugador) => jugador.equipo)
+  @OneToMany(() => Jugador, (jugador) => jugador.equipo, {    nullable: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',})
   jugador: Jugador[];
   constructor(params: equipos) {
     if (params) {
