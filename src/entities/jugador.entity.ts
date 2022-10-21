@@ -9,6 +9,7 @@ import {
 import { Equipo } from 'src/entities/equipo.entity';
 import { AbstractFechas } from 'src/entities/fechas.entity';
 import { Tag } from './tag.entity';
+
 @Entity({ name: 'jugadores' })
 export class Jugador extends AbstractFechas {
   constructor(params: Jugador) {

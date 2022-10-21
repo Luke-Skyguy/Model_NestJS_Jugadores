@@ -7,6 +7,7 @@ import { Jugador } from 'src/entities/jugador.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Equipo, Jugador])],
+
   controllers: [EquiposController],
   providers: [EquiposService],
 })

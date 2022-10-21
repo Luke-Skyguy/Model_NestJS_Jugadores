@@ -3,6 +3,7 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Jugador } from './jugador.entity';
@@ -29,4 +30,7 @@ export class Equipo {
 
   @Column()
   puntos_temporada: number;
+
+  @Column()
+  id_entr: number;
 }

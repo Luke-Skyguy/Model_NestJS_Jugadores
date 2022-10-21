@@ -5,6 +5,7 @@ import { Tag } from 'src/entities/tag.entity';
 import { JugadorController } from 'src/modul_jugadores/jugador.controller';
 import { JugadorService } from './JugadorService';
 
+import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [TypeOrmModule.forFeature([Jugador, Tag])],
   controllers: [JugadorController],
