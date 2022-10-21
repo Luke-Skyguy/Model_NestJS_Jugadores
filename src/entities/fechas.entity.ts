@@ -1,4 +1,3 @@
-import { Jugador } from 'src/modul_jugadores/jugador.entity';
 import {
   Column,
   Entity,

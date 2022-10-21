@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { off } from 'process';
 import { AppService } from 'src/app.service';
-import { Jugador } from './jugador.entity';
+import { Jugador } from 'src/entities/jugador.entity';
 import { JugadorService } from './JugadorService';
 
 @Controller('jugadores')
@@ -22,11 +22,11 @@ export class JugadorController {
   constructor(private playerService: JugadorService) {}
 
   //Consultas
-  @Get()
-  getRepository() {
-    this.logger.debug('log:');
-    return this.playerService.showAllRepository();
-  }
+  // @Get()
+  // getRepository() {
+  //   this.logger.debug('log:');
+  //   return this.playerService.showAllRepository();
+  // }
 
   getPlayerRepository(@Param() id: number) {
     return this.playerService.searchRepository(id);
@@ -45,7 +45,7 @@ export class JugadorController {
     return this.playerService.searchAllPaged(limit, offset);
   }
   @Get('date/:id')
-  getPlayerDate(@Param('id') id: string){
+  getPlayerDate(@Param('id') id: string) {
     return this.playerService.searchAbstractDate(id);
   }
   //Inserciones

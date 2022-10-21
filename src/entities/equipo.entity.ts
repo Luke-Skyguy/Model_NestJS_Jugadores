@@ -5,15 +5,17 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Jugador } from '../modul_jugadores/jugador.entity';
+import { Jugador } from './jugador.entity';
 
-@Entity({ name: 'equipos' })
-export class equipos {
-  @OneToMany(() => Jugador, (jugador) => jugador.equipo, {    nullable: true,
+@Entity({ name: 'equipo' })
+export class Equipo {
+  @OneToMany(() => Jugador, (jugador) => jugador.equipo, {
+    nullable: true,
     onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',})
+    onDelete: 'CASCADE',
+  })
   jugador: Jugador[];
-  constructor(params: equipos) {
+  constructor(params: Equipo) {
     if (params) {
       Object.keys(params).forEach((key) => (this[key] = params[key]));
     }

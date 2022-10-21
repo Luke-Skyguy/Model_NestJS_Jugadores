@@ -1,9 +1,10 @@
 import { Injectable, Logger, NotFoundException, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Jugador } from 'src/modul_jugadores/jugador.entity';
+import { Equipo } from 'src/entities/equipo.entity';
 import { off } from 'process';
-import { Tag } from 'src/modul_tags/tag.entity';
+import { Tag } from 'src/entities/tag.entity';
+import { Jugador } from 'src/entities/jugador.entity';
 
 @Injectable()
 export class JugadorService {
@@ -11,9 +12,7 @@ export class JugadorService {
     @InjectRepository(Jugador)
     private jugadorRepository: Repository<Jugador>,
     @InjectRepository(Tag) private tagRepository: Repository<Tag>,
-    @InjectRepository(equipos) private equipoRepository: Repository<equipos>,
-
-  ) { }
+  ) {}
 
   // example how to show DM entity
   showAllRepository() {
@@ -43,7 +42,7 @@ export class JugadorService {
   async searchAbstractDate(id: string) {
     return await this.jugadorRepository.findOne({
       select: ['nom_jugador', 'num_jugador'],
-      where: { idJugador: id, }
+      where: { idJugador: id },
     });
   }
 
@@ -65,7 +64,7 @@ export class JugadorService {
   }
 
   //Asignar jugador a equipo
- 
+
   //Cambio de tag de player
   async assignPlayerToTag(idPlayer: number, tagId?: number): Promise<Jugador> {
     const player = (await this.jugadorRepository.findOne({

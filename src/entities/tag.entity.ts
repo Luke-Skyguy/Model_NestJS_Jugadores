@@ -1,4 +1,3 @@
-import { Jugador } from 'src/modul_jugadores/jugador.entity';
 import {
   Column,
   Entity,
@@ -7,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Jugador } from './jugador.entity';
 @Entity({ name: 'tag' })
 export class Tag {
   @ManyToMany((jugador) => Jugador, (jugador) => jugador.tags)

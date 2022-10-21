@@ -6,9 +6,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { equipos } from 'src/modul_equipos/equipos.entity';
-import { Tag } from 'src/modul_tags/tag.entity';
-import { AbstractFechas } from 'src/modul_fechas/fechas_entity';
+import { Equipo } from 'src/entities/equipo.entity';
+import { AbstractFechas } from 'src/entities/fechas.entity';
+import { Tag } from './tag.entity';
 @Entity({ name: 'jugadores' })
 export class Jugador extends AbstractFechas {
   constructor(params: Jugador) {
@@ -18,8 +18,8 @@ export class Jugador extends AbstractFechas {
     }
   }
 
-  @ManyToOne(() => equipos, (equipo) => equipo.numjugadores)
-  equipo?: equipos;
+  @ManyToOne(() => Equipo, (equipo) => equipo.numjugadores)
+  equipo?: Equipo;
 
   @ManyToMany((tag) => Tag, (tag) => tag.jugadores, {
     eager: false,
