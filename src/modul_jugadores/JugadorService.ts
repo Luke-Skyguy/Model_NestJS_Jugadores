@@ -11,7 +11,6 @@ export class JugadorService {
     @InjectRepository(Jugador)
     private jugadorRepository: Repository<Jugador>,
     @InjectRepository(Tag) private tagRepository: Repository<Tag>,
-    @InjectRepository(equipos) private equipoRepository: Repository<equipos>,
 
   ) { }
 

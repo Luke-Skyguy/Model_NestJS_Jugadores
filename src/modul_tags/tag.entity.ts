@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 @Entity({ name: 'tag' })
 export class Tag {
-  @ManyToMany((jugador) => Jugador, (jugador) => jugador.tags)
   jugadores: Jugador[];
   constructor(params: Tag) {
     if (params) {

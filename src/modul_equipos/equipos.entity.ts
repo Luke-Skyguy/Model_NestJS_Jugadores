@@ -1,8 +1,10 @@
+import { Entrenador } from 'src/modul_entrenador/entrenador.entity';
 import {
   Column,
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Jugador } from '../modul_jugadores/jugador.entity';
@@ -13,6 +15,9 @@ export class equipos {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',})
   jugador: Jugador[];
+ // @OneToOne(() => Entrenador, (entrenador) => entrenador.id_equip)
+  entrenador: Entrenador;
+   
   constructor(params: equipos) {
     if (params) {
       Object.keys(params).forEach((key) => (this[key] = params[key]));
@@ -27,4 +32,7 @@ export class equipos {
 
   @Column()
   puntos_temporada: number;
+
+  @Column()
+  id_entr: number;
 }

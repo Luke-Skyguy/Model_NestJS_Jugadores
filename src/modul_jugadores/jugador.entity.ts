@@ -9,7 +9,9 @@ import {
 import { equipos } from 'src/modul_equipos/equipos.entity';
 import { Tag } from 'src/modul_tags/tag.entity';
 import { AbstractFechas } from 'src/modul_fechas/fechas_entity';
+import { Schema } from '@nestjs/mongoose';
 @Entity({ name: 'jugadores' })
+@Schema()
 export class Jugador extends AbstractFechas {
   constructor(params: Jugador) {
     super(params);
