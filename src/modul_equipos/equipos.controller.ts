@@ -40,6 +40,17 @@ export class EquiposController {
   async changeTeam(@Param('id') id: string, @Body() updatedTeam: equipos) {
     return await this.teamService.updateTeam(parseInt(id), updatedTeam);
   }
+  @Put(':playerId/tag/:teamId')
+  assignTagToPlayer(
+    @Param('playerId') playerId: string,
+    @Param('teamId') teamId: string,
+  ): Promise<equipos> {
+    return this.teamService.assignPlayerToTeam(
+      parseInt(playerId),
+      parseInt(teamId),
+    );
+  }
+
 
   @Delete()
   dropTeam(@Param() id: number) {

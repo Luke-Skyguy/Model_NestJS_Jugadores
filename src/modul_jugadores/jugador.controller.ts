@@ -55,7 +55,7 @@ export class JugadorController {
     return await this.playerService.insertPlayer(newPlayer);
   }
   //Cambio de tag
-  @Post(':playerId/tag/:tagId')
+  @Put(':playerId/tag/:tagId')
   assignTagToPlayer(
     @Param('playerId') playerId: string,
     @Param('tagId') tagId: string,

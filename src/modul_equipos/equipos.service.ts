@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Jugador } from 'src/modul_jugadores/jugador.entity';
 import { Repository } from 'typeorm';
 import { equipos } from './equipos.entity';
 
@@ -7,6 +8,8 @@ import { equipos } from './equipos.entity';
 export class EquiposService {
   constructor(
     @InjectRepository(equipos) private equipoRepository: Repository<equipos>,
+    @InjectRepository(Jugador) private jugadorRepository: Repository<Jugador>,
+
   ) {}
 
   showAllTeams() {
@@ -19,6 +22,25 @@ export class EquiposService {
 
   async insertTeam(newTeam: equipos): Promise<equipos | undefined> {
     return await this.equipoRepository.save(newTeam);
+  }
+  
+  async assignPlayerToTeam(idPlayer: number, teamId?: number): Promise<equipos> {
+    const player = (await this.jugadorRepository.findOne({
+      where: {
+        idJugador: idPlayer,
+      },
+      relations: ['equipos'],
+    })) as Jugador;
+    const team = (await this.equipoRepository.findOne({
+      where: {
+        idTeam: teamId,
+      },
+      relations: ['jugadores'],
+    })) as equipos;
+    // player.tags[flag] = tag;
+    team.jugador.push
+    this.jugadorRepository.save(player);
+    return team;
   }
   async removeTeam(id: number) {
     const exist = await this.equipoRepository.findOne({ id_equipo: id });

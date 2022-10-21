@@ -11,6 +11,8 @@ export class JugadorService {
     @InjectRepository(Jugador)
     private jugadorRepository: Repository<Jugador>,
     @InjectRepository(Tag) private tagRepository: Repository<Tag>,
+    @InjectRepository(equipos) private equipoRepository: Repository<equipos>,
+
   ) { }
 
   // example how to show DM entity
@@ -62,6 +64,8 @@ export class JugadorService {
     return await this.jugadorRepository.save(updatedPlayer);
   }
 
+  //Asignar jugador a equipo
+ 
   //Cambio de tag de player
   async assignPlayerToTag(idPlayer: number, tagId?: number): Promise<Jugador> {
     const player = (await this.jugadorRepository.findOne({
