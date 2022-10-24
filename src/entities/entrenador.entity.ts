@@ -8,9 +8,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'Entrenador' })
+@Entity({ name: 'entrenador' })
 export class Entrenador {
-  //@OneToOne(() => equipos, (equipo) => equipo.)
+  @OneToOne(() => Equipo, (equipo) => equipo.id_entr)
   equipo: Equipo;
   constructor(params: Entrenador) {
     if (params) {

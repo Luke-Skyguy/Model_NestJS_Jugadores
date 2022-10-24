@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Equipo } from 'src/entities/equipo.entity';
 
-export type EntrenadorEquipo = equipos;
+export type EquipoDocument = Equipo & Document;
 
 @Schema()
-export class equipos {
+export class SchemaEquipos {
   @Prop()
   id_equipo: number;
 
@@ -20,3 +21,4 @@ export class equipos {
   @Prop()
   id_entr: number;
 }
+export const EquipoSchema = SchemaFactory.createForClass(Equipo);

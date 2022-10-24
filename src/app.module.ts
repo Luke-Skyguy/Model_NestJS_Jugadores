@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -20,8 +21,11 @@ const entities: string[] = ['./**/*.entity.js'];
       entities: entities,
       synchronize: true,
     }),
-
-    ModulJugadoresModule,
+    MongooseModule.forRoot('mongodb://localhost/27017', {
+      useCreateIndex: true,
+    }),
+    
+        ModulJugadoresModule,
     ModulEquiposModule,
   ],
   controllers: [AppController],
