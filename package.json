@@ -33,7 +33,7 @@
     "@nestjs/typeorm": "^7.1.5",
     "form-data": "^4.0.0",
     "helmet": "^4.2.0",
-    "mongoose": "^5.12.12",
+    "mongoose": "^5.13.20",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
